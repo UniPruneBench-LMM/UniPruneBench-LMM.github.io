@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K19QDCVYV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-0K19QDCVYV');
+  </script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Can Visual Input Be Compressed? A Visual Token Compression Benchmark for Large Multimodal Models</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- Favicons --> 
+  <!-- <link href="assets/img/favicon.png" rel="icon"> -->
+  <link href="UniPruneBench/logo.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+ 
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:800|Crimson+Text:italic|Neuton:300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:600|IM+Fell+English:italic|Amethysta:regular" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind+Madurai:700|IM+Fell+Double+Pica:italic|Ovo:regular" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:500|Raleway:600|Frank+Ruhl+Libre:300" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+
+  <!-- SEO Meta Tags -->
+  <title>Can Visual Input Be Compressed? A Visual Token Compression Benchmark for Large Multimodal Models</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  
+
+
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Can Visual Input Be Compressed? A Visual Token Compression Benchmark for Large Multimodal Models">
+  <meta property="og:description" content="">
+  <!-- <meta property="og:image" content="assets/img/header-logo.png"> -->
+  <meta property="og:image" content="UniPruneBench/logo.png">
+  <meta property="og:url" content="https://evoke-lmm.github.io/">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Can Visual Input Be Compressed? A Visual Token Compression Benchmark for Large Multimodal Models">
+  <meta name="twitter:description" content="">
+  <!-- <meta name="twitter:image" content="assets/img/header-logo.png"> -->
+  <meta property="og:image" content="UniPruneBench/logo.png">
+
+  
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="author" content="UniPruneBench Research Team">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mined-lmm.github.io/">
+  
+  <!-- Schema.org Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ResearchProject",
+    "name": "MINED",
+    "description": "",
+    "url": "https://mined-lmm.github.io/",
+    "keywords": "",
+    "author": {
+      "@type": "Organization",
+      "name": "MINED Research Team"
+    }
+  }
+  </script>
+
+  <!-- =======================================================
+  * Template Name: Anyar
+  * Template URL: https://bootstrapmade.com/anyar-free-multipurpose-one-page-bootstrap-theme/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a class="logo d-flex align-items-center me-auto me-xl-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <!-- <h1 class="sitename">Trust</h1> -->
+        <!-- <img src="assets/img/header-logo.png" class="img-fluid" id="logo-img"  alt=""> -->
+        <img src="UniPruneBench/logo.png" class="img-fluid" id="logo-img"  alt="">
+
+        
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li class="dropdown">
+            <a href="#"><span>Explore</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#introduction">Introduction</a></li> 
+              <li><a href="#mined">UniPruneBench</a></li>
+              <li><a href="#probing">Results and Findings</a></li>
+              <li><a href="#exploratory">Analysis of Exploratory Results</a></li>
+              <li><a href="#examples">Case Studies</a></li>
+
+            </ul>
+          </li>
+          <!-- <li><a href="#about">Background</a></li> -->
+          <!-- <li><a href="#dimensions">Dimensions</a></li>
+          <li><a href="#models">Models</a></li>
+          <li><a href="#leaderboard">Leaderboard</a></li>
+          <li><a href="#discussion">Discussion</a></li> -->
+          <!-- <li><a href="https://trusteval-docs.readthedocs.io/">Docs</a></li> -->
+
+          <li><a href="[To be updated]">Github</a></li>
+          <li><a href="[To be updated]">Paper</a></li>
+
+
+
+
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+     <!-- <div class="header-social-links">
+       <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+       <a href="#" class="facebook"><i class="bi bi-facebook"></i></a> -->
+<!--        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>-->
+<!--        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>-->
+  <!-- </div>  -->
+
+    </div>
+  </header> 
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="img-background-container"> <!-- 使用 class 而不是 id -->
+        <div class="img-background" id="background"></div>
+      </div>
+
+      
+      <!-- <video autoplay muted  playsinline preload="auto"  id="background-video">
+         <source src="assets/img/background-video - 02-4.mp4" type="video/mp4"> 
+        <source src="MINED/video/MINED.mp4" type="video/mp4">
+        
+        Your browser does not support the video tag.
+      </video> -->
+
+
+      <div class="container" id="title-container">
+        <div class="row justify-content-center">
+          <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="100">
+            <h2 style="font-size: 60px;"><span>UniPruneBench</span></h2>
+            <h2 style="font-size: 38px;">Can Visual Input Be Compressed? <br> A Visual Token Compression Benchmark <br> for Large Multimodal Models</h2>
+            <!-- <p style="font-size: 38px;">Knowledge-Oriented Augmentations and Constraints</p> -->
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+
+    <!-- Introduction Section -->
+    <section id="introduction" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Introduction</h2>
+      </div>
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-10 my-4">
+          <div class="content col-xl-12 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+            <p style="font-size: 20px;">Large multimodal models (LMMs) often suffer from severe inference inefficiency due to the large number of visual tokens introduced by image encoders. While recent token compression methods, such as pruning and merging, have shown promise in reducing redundancy, their evaluation remains fragmented and inconsistent. In this work, we present <span style="font-weight: bold; color: #2E7D32;">UniPruneBench</span>, a unified and extensible benchmark for visual token pruning in multimodal LLMs. UniPruneBench provides standardized protocols across <b>6</b> ability dimensions and <b>10</b> datasets, covering <b>10</b> representative compression algorithms and <b>3</b> families of LMMs (<b>LLaVA-v1.5</b>, <b>Intern-VL3</b>, and <b>Qwen2.5-VL</b>). Beyond task accuracy, it incorporates system-level metrics such as runtime and prefilling latency to provide a holistic view. Our experiments uncover several key findings: (1) random pruning is a surprisingly strong baseline, (2) no single method consistently outperforms others across scenarios, (3) pruning sensitivity varies significantly across tasks, with OCR being most vulnerable, and (4) pruning ratio is the dominant factor governing performance degradation. We believe UniPruneBench will serve as a reliable foundation for future research on efficient multimodal modeling.</p>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Introduction Section -->
+
+    <section id="mined" class="models section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <!-- <h2>Dynamic Benchmark</h2> -->
+        <h2>UniPruneBench</h2>
+        
+   
+
+      </div><!-- End Section Title -->
+      
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-10 my-4">
+          <div class="content col-xl-12 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+          <p style="font-size: 20px;">Overview of UniPruneBench, along with experimental results for representative pruning methods across various data scenarios.</p>
+
+          
+          
+
+        <div class="text-center my-5">
+            <img src="UniPruneBench/intro.png" class="img-fluid" alt="" style="width: 100%; height: auto;">
+          
+        </div>
+
+        <p style="font-size: 20px;"> Figure 2 presents the UniPruneBench taxonomy of visual token pruning methods, categorized into <span style="font-weight: bold; color: #2E7D32;">ViT-only</span>, <span style="font-weight: bold; color: #2E7D32;">LLM-only</span>, and <span style="font-weight: bold; color: #2E7D32;">Hybrid</span> approaches.</p>
+
+        <div class="text-center my-5">
+          <img src="UniPruneBench/frame.png" class="img-fluid" alt="" style="width: 100%; height: auto;">
+        </div>
+
+          </div>
+        </div>
+            </div>
+      
+    </section>
+    
+
+    <section id="probing" class="models section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <!-- <h2>Dynamic Benchmark</h2> -->
+        <h2>Results and Findings</h2>
+
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-10 my-4">
+          <div class="content col-xl-12 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+         <div class="row">
+
+           <div class="col-12 text-center my-2">
+             <img src="UniPruneBench/t1.png" class="img-fluid my-1" alt="" style="width: 100%; height: auto;">
+                  </div>
+          <div class="col-12 text-center my-2">
+            <img src="UniPruneBench/t2.png" class="img-fluid my-1" alt="" style="width: 100%; height: auto;">
+                  </div>
+          <div class="col-12 text-center my-2">
+            <img src="UniPruneBench/t3.png" class="img-fluid my-1" alt="" style="width: 100%; height: auto;">
+                  </div>
+
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-10 my-4">
+          <div class="content col-xl-12 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+           <!-- <p style="font-size: 20px;">We observe that MINED-Augmentation augments the original knowledge into multi-rounds dialogues data <b>(forming the trunk)</b> and instruction tasks data <b>(forming the branches)</b>, thereby constructing a comprehensive and higher-level knowledge tree (Left part of Figure 3) that supports superior generalization and internalization of new knowledge. MINED-Augmentation moves beyond enabling models to accurately fit training data for &ldquo;data memorization&rdquo;. Instead, it focuses on helping the model comprehend and reason about the inherent logic and associations within the knowledge itself. This enables the model to think, internalize new knowledge, and effectively extract and manipulate the learned knowledge, thereby achieving real <span style="font-weight: bold; color: #2E7D32;">&ldquo;knowledge internalization&rdquo;</span>.</p> -->
+
+          <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-12">
+                <div class="accordion" id="trustModelRules">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" data-bs-parent="#trustModelRules">
+                        Observation 1: Random pruning remains a surprisingly strong baseline. 
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#trustModelRules">
+                      <div class="accordion-body">
+                        Random pruning consistently outperforms several well-designed methods, such as FitPrune, GPrune, VTW, and PruMerge. For instance, on InternVL3-8B and Qwen2.5-VL-7B, FitPrune performs worse than random pruning across all pruning ratios. On LLaVA-v1.5-7B, six out of eight perform worse than random pruning at 66.7% and 77.8% pruning ratios. This unexpected result highlights the limitation of current designs and suggests that more effective pruning strategies are needed beyond naive baselines.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-bs-parent="#trustModelRules">
+                        Observation 2: No single method achieves universal superiority.
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#trustModelRules">
+                      <div class="accordion-body">No approach dominates across all models and pruning ratios. DivPrune achieves the best results on both Qwen2.5-VL-7B and InternVL3-8B under all ratios. However, on LLaVA-v1.5-7B, SparseVLM surpasses DivPrune under light pruning ratios, while DivPrune regains superiority under more aggressive pruning. This indicates that performance strongly depends on both the model architecture and the pruning level.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" data-bs-parent="#trustModelRules">
+                        Observation 3: Hybrid-based methods demonstrate strong overall performance.
+                      </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#trustModelRules">
+                      <div class="accordion-body">
+                        Among the three categories of methods, hybrid-based approaches achieve the best results on LLaVA-v1.5-7B at the 77.8% and 66.7% pruning ratios, though they perform worse at the 88.9% ratio. On InternVL3-8B and Qwen2.5-VL-7B, ViT-only methods (e.g., DivPrune) consistently outperform LLM-only methods (e.g., FitPrune), suggesting that vision-side pruning is more effective than language-side pruning.
+                      </div>
+                    </div>
+              </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" data-bs-parent="#trustModelRules">
+                        Observation 4: Task-level sensitivity varies: instruction following improves, while OCR degrades severely.
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#trustModelRules">
+                      <div class="accordion-body">
+                        Most benchmarks show accuracy degradation as pruning intensifies. However, instruction-following tasks (e.g., MIA) exhibit improvements in some cases. For example, on InternVL3-8B, DivPrune raises accuracy from 72.22% to 79.82%. We hypothesize that pruning increases the relative weight of textual inputs, thereby enhancing instruction adherence. In contrast, OCR tasks are highly sensitive to pruning: as more visual tokens are removed, crucial details are lost, leading to rapid performance decline.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" data-bs-parent="#trustModelRules">
+                        Observation 5: Higher pruning ratios induce sharper performance loss.
+                      </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#trustModelRules">
+                      <div class="accordion-body">
+                        Light pruning leads to moderate degradation, while aggressive pruning causes substantial drops. For example, on Qwen2.5-VL-7B, the average accuracy decreases from 57.5% at 33% tokens to 50.1% at 11% tokens under random pruning. Similarly, on InternVL3-8B, DivPrune maintains 67.58% at 22% tokens but falls to 64.04% at 11% tokens. Notably, DivPrune consistently achieves the best results under the highest pruning ratio (88.9%), showing stronger robustness in extreme scenarios.
+                      </div>
+                    </div>
+                  </div>
+
+                 
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+
+    <section id="exploratory" class="models section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <!-- <h2>Dynamic Benchmark</h2> -->
+        <h2>Analysis of Exploratory Results</h2>
+
+      </div><!-- End Section Title -->
+      
+      <div class="container" data-aos="fade-up">
+        <div class="row gy-10 my-4">
+          <div class="content col-xl-12 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
+         <div class="row">
+
+           <div class="col-12 text-center my-2">
+             <img src="UniPruneBench/size.png" class="img-fluid my-1" alt="" style="width: 100%; height: auto;">
+                  </div>
+          <div class="col-12 text-center my-2">
+            <img src="UniPruneBench/time.png" class="img-fluid my-1" alt="" style="width: 100%; height: auto;">
+                  </div>
+          
+           <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-12">
+                <div class="accordion" id="trustModelRulesExp">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOneExp">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneExp" aria-expanded="true" aria-controls="collapseOneExp" data-bs-parent="#trustModelRulesExp">
+                        Exploration 1: Influence of model size
+                      </button>
+                    </h2>
+
+                    <div id="collapseOneExp" class="accordion-collapse collapse show" aria-labelledby="headingOneExp" data-bs-parent="#trustModelRulesExp">
+                      <div class="accordion-body">
+                        To investigate the sensitivity of token compression techniques to model scale, we evaluate three representative methods, DivPrune, GPrune, and FastV, across two variants of InternVL: InternVL3-1B (small) and InternVL3-8B (large). As shown in Fig 3, scaling up the base model consistently yields significant accuracy gains across nearly all benchmarks under all compression methods, confirming that larger models retain more semantic capacity even after token reduction. The results indicate that larger architectures provide greater robustness to token reduction, suggesting that compression strategies should be evaluated across scales rather than in isolation.
+                      </div>
+                    </div>
+                  </div>
+ 
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwoExp">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoExp" aria-expanded="false" aria-controls="collapseTwoExp" data-bs-parent="#trustModelRulesExp">
+                        Exploration 2: Running time
+                      </button>
+                    </h2>
+                    <div id="collapseTwoExp" class="accordion-collapse collapse" aria-labelledby="headingTwoExp" data-bs-parent="#trustModelRulesExp">
+                      <div class="accordion-body">
+                        Considering real-world scenarios, we also evaluate the running time of different pruning methods. We profile three nested intervals: Total time, the elapsed time to finish the entire dataset; Prefill time, the single encoder forward pass that computes keys and values for all visual and textual tokens before any decoding starts, a phase that is compute-bound for the large model; and Method time, the GPU milliseconds spent only on the compression subroutine (token scoring, selection and tensor re-layout). All measurements were collected on an NVIDIA A100-40 GB GPU with batch size = 1 and three independent runs. All reported methods correspond to a uniform pruning rate of 88.9% on the MME benchmark. The results in Table 4 show that the last component never exceeds 0.5s, less than 0.12 % of the corresponding total. So the cost of importance estimation is negligible. Pruning therefore exerts its effect entirely within the prefill: DivPrune and GPrune shorten it from 320 s to 185 s and 167 s, delivering 1.73–1.92× encoder acceleration and an overall 1.62–1.68× end-to-end speed-up versus the vanilla model.
+      </div>
+                    </div>
+                  </div>
+ 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+         <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+        <div class="row gy-4">
+             <div class="col-12">
+               <div class="accordion" id="trustModelRules2">
+                
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+
+    
+
+    
+
+    <section id="examples" class="examples section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Case Studies</h2>
+      </div>
+    
+    
+
+    
+    
+    <!-- 引入 Bootstrap 的 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+    
+
+    <div class="container section-title" data-aos="fade-up">
+      <h2>BibTeX</h2>
+    </div>
+  <!-- 新增 BibTeX 栏目 -->
+<!-- 新增 BibTeX 栏目 -->
+<div class="team-bibtex" style="max-width: 950px; margin: 32px auto 50px auto; background: #f8f9fa; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 20px; position: relative;">
+  <!-- Copy按钮 -->
+
+
+
+  <button id="copy-bibtex" style="position: absolute; top: 15px; right: 15px; background: #2E7D32; color: white; border: 1px solid #A5D6A7; border-radius: 6px; padding: 8px 12px; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background-color 0.3s;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="m5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+    Copy
+  </button>
+  
+  <!-- 代码容器 -->
+  <div style="background: white; border-radius: 6px; padding: 20px; margin-top: 40px; overflow-x: auto; border: 1px solid #e5e7eb;">
+      <pre id="bibtex-content" style="font-size: 14px; color: #333; background: none; border: none; margin: 0; padding: 0; font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace; white-space: pre; word-break: normal; min-width: max-content;">
+  @article{xxx,
+  title = {Can Visual Input Be Compressed? A Visual Token Compression Benchmark for Large Multimodal Models},
+  author={},
+  year = {2025}
+}</pre>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const copyButton = document.getElementById('copy-bibtex');
+  const bibtexContent = document.getElementById('bibtex-content');
+  
+  copyButton.addEventListener('click', async function() {
+    try {
+      await navigator.clipboard.writeText(bibtexContent.textContent);
+      
+      // 临时改变按钮文本和样式
+      const originalText = copyButton.innerHTML;
+      copyButton.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"></polyline></svg>Copied!';
+      copyButton.style.background = '#059652';
+      
+      // 2秒后恢复原状
+      setTimeout(() => {
+        copyButton.innerHTML = originalText;
+        copyButton.style.background = '#8E24AA';
+      }, 2000);
+      
+    } catch (err) {
+      console.error('复制失败:', err);
+      // 降级方案：选中文本
+      const range = document.createRange();
+      range.selectNode(bibtexContent);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      
+      try {
+        document.execCommand('copy');
+        copyButton.innerHTML = 'Copied!';
+        setTimeout(() => {
+          copyButton.innerHTML = 'Copy';
+        }, 2000);
+      } catch (fallbackErr) {
+        alert('复制失败，请手动选择文本复制');
+      }
+    }
+  });
+  
+  // 按钮悬停效果
+  copyButton.addEventListener('mouseenter', function() {
+        this.style.background = '#C8A2DC';
+  });
+  
+  copyButton.addEventListener('mouseleave', function() {
+    if (this.style.background !== '#059652') {
+        this.style.background = '#8E24AA';
+    }
+  });
+});
+</script>
+
+<script>
+// Header scroll effect
+document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.header');
+  
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  
+  // Initial check
+  handleScroll();
+});
+</script>
+  
+
+    <!-- booktitle={The Thirteenth International Conference on Learning Representations}, -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-6 col-md-6 footer-about">
+          <a href="index.html" class="d-flex align-items-center">
+            <span class="sitename">UniPruneBench</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <!-- General Email Section -->
+            <p style="font-size: 20px;"><strong>General Email:</strong></p>
+            <p style="font-size: 20px;"><span>Tianfan Peng: 
+
+
+                      <br>
+                      <span style="color: #F8FAFC; font-weight: bold;">tianfanpeng@gmail.com</span>
+                    </span></p>
+
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4 style="font-size: 20px;">Useful Links</h4>
+          <ul style="font-size: 16px;">
+            <li><i class="bi bi-chevron-right"></i> <a href="[To be updated]">Home</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="[To be updated]">Paper</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="[To be updated]">Github</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p style="color: #F8FAFC;">© <span>Copyright</span> <strong class="px-1 sitename">UniPruneBench</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/table2.js"></script>
+  <script src="assets/js/anime.js"></script>
+  <script src="anime.min.js"></script>
+   <!-- 使用官方 CDN -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script> -->
+
+
+
+</body>
+
+
+
+
+</html>
